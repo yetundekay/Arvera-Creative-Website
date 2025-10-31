@@ -26,17 +26,13 @@ export const Contact: React.FC = () => {
     setError('');
 
     try {
-      const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-6a419bf5/contact`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${publicAnonKey}`,
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch('/functions/contact', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(formData),
+});
 
       const data = await response.json();
 
