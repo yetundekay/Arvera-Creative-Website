@@ -1,20 +1,44 @@
-// functions/contact.ts
-import { Hono } from 'hono';
-import { json } from 'hono/json';
+import { serve } from 'std/server';
+import { createClient } from '@supabase/supabase-js';
 
-const app = new Hono();
+// Use environment variables for security
+const supabase = createClient(
+  process.env.SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
-app.post('/', async (c) => {
+serve(async (req) => {
+  if (req.method !== 'POST') {
+    return new Response('Method not allowed', { status: 405 });
+  }
+
   try {
-    const { name, email, message } = await c.req.json();
+    const body = await req.json();
 
-    // Here you can process the form: save to DB, send email, etc.
-    console.log('Contact form submission:', { name, email, message });
+    // Optional: Validate input
+    if (!body.name || !body.email || !body.message) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Name, email, and message are required.' }),
+        { status: 400 }
+      );
+    }
 
-    return json({ success: true, message: 'Form submitted successfully!' });
+    // Insert into Supabase table "contacts"
+    const { data, error } = await supabase.from('contacts').insert([body]);
+
+    if (error) {
+      console.error('Supabase insert error:', error);
+      throw new Error(error.message);
+    }
+
+    return new Response(
+      JSON.stringify({ success: true, message: 'Form submitted successfully!', data }),
+      { status: 200 }
+    );
   } catch (err: any) {
-    return json({ success: false, error: err.message }, 500);
+    return new Response(
+      JSON.stringify({ success: false, error: err.message }),
+      { status: 500 }
+    );
   }
 });
-
-export default app;
