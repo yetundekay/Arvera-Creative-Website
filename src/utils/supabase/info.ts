@@ -1,2 +1,2 @@
-export const projectId = 'your-supabase-project-id'
-export const publicAnonKey = 'your-supabase-anon-key'
+export const projectId = 'https://ddzabvwzblafevjlcebe.supabase.co'
+export const publicAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRkemFidnd6YmxhZmV2amxjZWJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE1Njc3MTMsImV4cCI6MjA3NzE0MzcxM30.pDe7PK3v0uj_UNz9cDF_9jWdYL0eLPjhsD69zsZOgIE'
