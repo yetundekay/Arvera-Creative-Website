@@ -7,21 +7,21 @@ serve(async (req) => {
     }
 
     const body = await req.json();
+    const { name, email, message } = body;
 
-    // Call Arvera API
-    const response = await fetch('https://arvera-api.com/contact', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.ARVERA_API_KEY}`, // keep secret in Supabase env
-      },
-      body: JSON.stringify(body),
-    });
+    // Process form submission here
+    // For example, log it or save to a database
+    console.log('Contact form submission:', { name, email, message });
 
-    const result = await response.json();
-
-    return new Response(JSON.stringify({ success: true, result }), { status: 200 });
-  } catch (err) {
-    return new Response(JSON.stringify({ success: false, error: err.message }), { status: 500 });
+    // Return success response
+    return new Response(
+      JSON.stringify({ success: true, message: 'Form submitted successfully!' }),
+      { status: 200 }
+    );
+  } catch (err: any) {
+    return new Response(
+      JSON.stringify({ success: false, error: err.message }),
+      { status: 500 }
+    );
   }
 });
