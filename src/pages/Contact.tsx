@@ -1,3 +1,4 @@
+import { supabase } from '../utils/supabase';
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { projectId, publicAnonKey } from '../utils/supabase/info';
