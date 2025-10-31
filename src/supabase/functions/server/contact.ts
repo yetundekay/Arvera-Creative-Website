@@ -8,12 +8,12 @@ serve(async (req) => {
 
     const body = await req.json();
 
-    // Call Arvera API from server
+    // Call Arvera API
     const response = await fetch('https://arvera-api.com/contact', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.ARVERA_API_KEY}`, // keep secret in Supabase
+        'Authorization': `Bearer ${process.env.ARVERA_API_KEY}`, // keep secret in Supabase env
       },
       body: JSON.stringify(body),
     });
